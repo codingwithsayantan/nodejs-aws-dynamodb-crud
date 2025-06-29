@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBClient,
+  GetItemCommand,
+  PutItemCommand,
+} from "@aws-sdk/client-dynamodb";
 
 import CustomError from "../error/customError.js";
 import CONST from "../config/consts.js";
@@ -53,4 +57,41 @@ const postUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { postUser };
+// Function to handle GET requests fto fetch a user by email
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = req.params;
+
+    // Validate required fields
+    if (!email) {
+      throw new CustomError(400, "Missing required fields");
+    }
+
+    // Params for the PutItem command
+    const params = {
+      TableName: CONST.DYNAMODB.tableNameUsers,
+      Key: {
+        user_email: { S: email },
+      },
+    };
+
+    // Send the GetItemCommand command to DynamoDB to fetch a user
+    const result = await client.send(new GetItemCommand(params));
+
+    console.log("GetItemCommand succeeded:", result);
+
+    // Check if the item was created successfully
+    if (!result.Item) {
+      throw new CustomError(404, "User not found");
+    }
+
+    res
+      .status(200)
+      .send({ message: "User fetched successfully", user: result.Item });
+    return;
+  } catch (err) {
+    next(err);
+  }
+};
+
+export { postUser, getUser };

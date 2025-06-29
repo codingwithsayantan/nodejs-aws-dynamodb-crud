@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { postUser } from "../controllers/users.js";
+import { postUser, getUser } from "../controllers/users.js";
 
 const userRouter = express.Router();
 
@@ -10,5 +10,8 @@ userRouter.get("/health", (req: Request, res: Response) => {
 
 // POST user to the DynamoDB table
 userRouter.post("/users", postUser);
+
+// GET user by email from the DynamoDB table
+userRouter.get("/users/:email", getUser);
 
 export default userRouter;
