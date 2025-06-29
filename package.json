@@ -5,18 +5,23 @@
   "license": "ISC",
   "author": "CodingWithSayantan",
   "type": "module",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
-    "dev": "nodemon src/app.ts"
+    "dev": "env-cmd -f .env.dev nodemon src/app.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.7",
     "dotenv": "^17.0.0",
+    "env-cmd": "^10.1.0",
     "express": "^5.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.839.0",
+    "@aws-sdk/lib-dynamodb": "^3.839.0"
   }
 }
