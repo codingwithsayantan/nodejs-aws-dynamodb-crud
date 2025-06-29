@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { postUser, getUser } from "../controllers/users.js";
+import { postUser, getUser, deleteUser } from "../controllers/users.js";
 
 const userRouter = express.Router();
 
@@ -13,5 +13,8 @@ userRouter.post("/users", postUser);
 
 // GET user by email from the DynamoDB table
 userRouter.get("/users/:email", getUser);
+
+// DELETE user by email from the DynamoDB table
+userRouter.delete("/users/:email", deleteUser);
 
 export default userRouter;
