@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 import CustomError from "../error/customError.js";
@@ -17,8 +17,6 @@ const config = {
 const client = new DynamoDBClient(config);
 
 // Function to handle POST requests to create a user in DynamoDB
-import { NextFunction } from "express";
-
 const postUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, name, fcm_token } = req.body;
