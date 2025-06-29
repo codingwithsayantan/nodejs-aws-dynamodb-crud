@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "NodeNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "nodenext",
+    "allowSyntheticDefaultImports": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
